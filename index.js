@@ -1,12 +1,11 @@
 function f(...x) {
-
   function f1(...y) {
     if (!y.length) {
       return x;
     }
 
-    if (typeof y[0] === "function") {
-      return f(x.map(y[0]))
+    if (typeof y[0] === 'function') {
+      return f(x.map(y[0]));
     }
 
     return f(x.concat(y));
@@ -18,10 +17,5 @@ function f(...x) {
   return f1;
 }
 
-const mult2 = (x) => (y) =>
-  y ? mult2(x * y) : x;
-
-
-// map(arr, )
-
-const map = ({ arr, fn }) => arr.map(fn);
+const foo = f(1, 2, 3, 4, 5);
+console.log(foo);
