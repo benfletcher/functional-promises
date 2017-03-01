@@ -1,12 +1,18 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 6
+  "env": {
+    "browser": true
   },
   "extends": "airbnb-base",
-  "plugins": [
-    "import"
-  ],
   "rules": {
-    "no-console": 0
+    "no-console": 0,
+    "no-confusing-arrow": [
+      "error",
+      {
+        "allowParens": true
+      }
+    ],
+    "no-unused-vars": 0,
+    "comma-dangle": 0,
+    "no-underscore-dangle": 0
   }
 }

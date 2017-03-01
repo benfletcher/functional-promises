@@ -1,21 +1,32 @@
-function f(...x) {
-  function f1(...y) {
-    if (!y.length) {
-      return x;
-    }
+'use strict'; // eslint-disable-line
 
-    if (typeof y[0] === 'function') {
-      return f(x.map(y[0]));
-    }
+const _ = arr => function f(...x) {
+  function __(...y) {
+    return ((y.length) ? f(...x, ...y) : f(...x));
+  }
+  __.toString = () => JSON.stringify(x);
+  __.then = () => x.reduce(arr);
 
-    return f(x.concat(y));
+  return __;
+};
+
+function lcm(x, y) {
+  function gcd(xx, yy) {
+    if (yy === 0) return xx;
+
+    if (yy > xx) return gcd(yy, xx);
+
+    return gcd(yy, xx % yy);
   }
 
-  f1.toString = () =>
-    Function.prototype.toString.call(f1).replace(/x/g, JSON.stringify(x));
-
-  return f1;
+  return (x / gcd(x, y)) * y;  // Euclid
 }
 
-const foo = f(1, 2, 3, 4, 5);
-console.log(foo);
+const currify = fn => function doFn(x) {
+  const inner = y => ((y === null) ? x : doFn(fn(x, y)));
+  inner.toString = () => `${fn.name}(${x})`;
+
+  return inner;
+};
+
+const _lcm_ = currify(lcm);
