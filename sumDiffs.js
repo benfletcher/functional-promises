@@ -3,16 +3,16 @@
 
 function twoSum(arr, S) {
   const pairs = [];
-  const diffs = {};
+  const nums = {};
 
   arr.forEach((el) => {
     const diff = S - el;
 
-    if (diff in diffs) {
+    if (nums[diff]) {
       pairs.push([el, diff]);
     }
 
-    diffs[el] = true;
+    nums[el] = true;
   });
 
   return pairs;
